@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Interface;
 using Core.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +11,29 @@ namespace API.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly ProductRepository _repository;
+        private readonly IProductRepository _repository;
 
-        public ProductController(ILogger<ProductController> logger, IConfiguration configuration)
+
+
+        public ProductController(IProductRepository repo, ILogger<ProductController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
-            _repository = new ProductRepository(_configuration.GetConnectionString("default"));
+            _repository = repo;
+            configuration.GetConnectionString("default");
         }
 
-        [HttpGet(Name = "GetProduct")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            var products = await _repository.GetAllProducts();
+            var products = await _repository.GetProductsAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductById(int id)
+        {
+            var products = await _repository.GetProductByIdAsync(id);
             return Ok(products);
         }
     }

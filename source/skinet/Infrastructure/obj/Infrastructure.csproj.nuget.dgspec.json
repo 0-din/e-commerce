@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Repositories\\e-commerce\\source\\skinet\\infrastructure\\Infrastructure.csproj": {}
+    "E:\\Repositories\\e-commerce\\source\\skinet\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
     "E:\\Repositories\\e-commerce\\source\\skinet\\Core\\Core.csproj": {
@@ -63,14 +63,14 @@
         }
       }
     },
-    "E:\\Repositories\\e-commerce\\source\\skinet\\infrastructure\\Infrastructure.csproj": {
+    "E:\\Repositories\\e-commerce\\source\\skinet\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Repositories\\e-commerce\\source\\skinet\\infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "E:\\Repositories\\e-commerce\\source\\skinet\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "E:\\Repositories\\e-commerce\\source\\skinet\\infrastructure\\Infrastructure.csproj",
+        "projectPath": "E:\\Repositories\\e-commerce\\source\\skinet\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\fx506heb\\.nuget\\packages\\",
-        "outputPath": "E:\\Repositories\\e-commerce\\source\\skinet\\infrastructure\\obj\\",
+        "outputPath": "E:\\Repositories\\e-commerce\\source\\skinet\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

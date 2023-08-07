@@ -919,8 +919,8 @@
     },
     "Infrastructure/1.0.0": {
       "type": "project",
-      "path": "../infrastructure/Infrastructure.csproj",
-      "msbuildProject": "../infrastructure/Infrastructure.csproj"
+      "path": "../Infrastructure/Infrastructure.csproj",
+      "msbuildProject": "../Infrastructure/Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
