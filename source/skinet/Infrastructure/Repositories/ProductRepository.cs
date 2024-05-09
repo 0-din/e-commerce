@@ -2,7 +2,7 @@
 using Core.Entities;
 using Core.Interface;
 
-namespace Core.Repositories
+namespace Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {

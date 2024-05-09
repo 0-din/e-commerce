@@ -14,7 +14,7 @@
             set;
         }
 
-        public decimal? Price
+        public int Price
         {
             get;
             set;
@@ -32,7 +32,7 @@
             set;
         }
 
-        public int? ProductTypeId
+        public int ProductTypeId
         {
             get;
             set;
@@ -44,7 +44,7 @@
             set;
         }
 
-        public int? ProductBrandId
+        public int ProductBrandId
         {
             get;
             set;

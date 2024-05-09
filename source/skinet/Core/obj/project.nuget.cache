@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tzpM6kHZN4OJuAo5ajCNHkBwsxBe6ED7n1xHuHh7vPjUQlMJMIKpEPLrTQIQp5Fd7Bg9VRDOgSJ8PJs9WMoCLA==",
+  "dgSpecHash": "vb4wsY20BrXPi0my4NeVY5he+Q6dau0HG7KyjAwwJsYMz/Utu422ePAueg5AtrUok+Ktivl7wXoLQVBIUpq60w==",
   "success": true,
-  "projectFilePath": "E:\\Repositories\\e-commerce\\source\\skinet\\Core\\Core.csproj",
+  "projectFilePath": "/home/odin/development/e-commerce/source/skinet/Core/Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
