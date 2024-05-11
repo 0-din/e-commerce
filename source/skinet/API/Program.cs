@@ -1,6 +1,6 @@
-using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Core.Interface;
+using Infrastructure.Data;
 using Infrastructure.Repositories;
 
 var _config = new ConfigurationBuilder()
@@ -30,12 +30,13 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-
+        var context = services.GetRequiredService<StoreContext>();
+        await context.Database.MigrateAsync();
     }
     catch (Exception ex)
     {
         var logger = loggerFactory.CreateLogger<Program>();
-        logger.LogError(ex, "error!");
+        logger.LogError(ex, "An error occured during migration!");
     }
 }
 

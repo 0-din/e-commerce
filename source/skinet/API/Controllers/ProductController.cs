@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System.Runtime.CompilerServices;
+using Core.Entities;
 using Core.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,30 +9,37 @@ namespace API.Controllers
     [Route("api/[Controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
-        private readonly IConfiguration _configuration;
         private readonly IProductRepository _repository;
 
-        public ProductController(IProductRepository repo, ILogger<ProductController> logger, IConfiguration configuration)
+        public ProductController(IProductRepository repository)
         {
-            _logger = logger;
-            _configuration = configuration;
-            _repository = repo;
-            configuration.GetConnectionString("default");
+            _repository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = await _repository.GetProductsAsync();
+            var products = await _repository.GetAllAsync();
             return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductById(int id)
         {
-            var products = await _repository.GetProductByIdAsync(id);
+            var products = await _repository.GetByIdAsync(id);
             return Ok(products);
+        }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IEnumerable<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await _repository.GetProductBrandsAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IEnumerable<ProductBrand>>> GetProductTypes()
+        {
+            return Ok(await _repository.GetProductTypesAsync());
         }
     }
 }

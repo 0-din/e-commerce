@@ -20,7 +20,7 @@ namespace Infrastructure.Repositories
             constr = _connectionString = connectionString;
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             using (var conn = new SqlConnection(_connectionString))
             using (var com = new SqlCommand("select * from User where id = @id", conn))
@@ -49,7 +49,7 @@ namespace Infrastructure.Repositories
             throw new Exception("Not found.");
         }
 
-        public async Task<IReadOnlyList<User>> GetUsersAsync()
+        public async Task<IReadOnlyList<User>> GetAllAsync()
         {
             var users = new List<User>();
 
@@ -79,6 +79,21 @@ namespace Infrastructure.Repositories
             }
 
             return users;
+        }
+
+        public Task<int> InsertAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(User entity)
+        {
+            throw new NotImplementedException();
+        } 
+
+        public Task DeleteAsync(int Id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

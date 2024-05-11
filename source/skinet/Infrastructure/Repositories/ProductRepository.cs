@@ -1,61 +1,61 @@
 ﻿using System.Data.SqlClient;
 using Core.Entities;
 using Core.Interface;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly string _connectionString;
-
-        public ProductRepository()
+        private readonly StoreContext _context;
+        public ProductRepository(StoreContext context)
         {
-            _connectionString = "";
+            _context = context;
         }
 
-        public ProductRepository(string connectionString)
-            : this()
+        public async Task<IReadOnlyList<Product>> GetAllAsync()
         {
-            _connectionString = connectionString;
-        }
-
-        public async Task<Product> GetProductByIdAsync(int id)
-        {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var com = new SqlCommand("select * from product where id = @id", conn))
-            {
-                conn.Open();
-                com.Parameters.Add(new SqlParameter("@id", id));
-
-                using (var reader = await com.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                        return new Product() { Id = (int)reader["Id"], Name = (string)reader["Name"] };
-                }
-            }
-
-            throw new Exception("Not found.");
-        }
-
-        public async Task<IReadOnlyList<Product>> GetProductsAsync()
-        {
-            var products = new List<Product>();
-
-            using (var conn = new SqlConnection(_connectionString))
-            using (var com = new SqlCommand("select * from product", conn))
-            {
-                conn.Open();
-
-                using (var reader = await com.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        products.Add(new Product() { Id = (int)reader["Id"], Name = (string)reader["Name"] });
-                    }
-                }
-            }
-
+            var products = await _context.Products
+                .Include(p => p.ProductBrand)
+                .Include(p => p.ProductType)
+                .ToListAsync();
             return products;
+        }
+
+        public async Task<Product?> GetByIdAsync(int id)
+        {
+            return await _context.Products
+                .Include(p => p.ProductBrand)
+                .Include(p => p.ProductType)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public Task<int> InsertAsync(Product entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(Product entity)
+        {
+            throw new NotImplementedException();
+        } 
+
+        public Task DeleteAsync(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
+        {
+            var brands = await _context.ProductBrands.ToListAsync();
+            return brands;
+        }
+
+        public async Task<IReadOnlyList<ProductType>> GetProductTypesAsync()
+        {
+            var types = await _context.ProductTypes.ToListAsync();
+            return types;
         }
     }
 }
