@@ -1,6 +1,7 @@
 using System.Data.SqlClient;
 using Core.Entities;
 using Core.Interface;
+using Core.Specifications;
 
 namespace Infrastructure.Repositories
 {
@@ -22,63 +23,12 @@ namespace Infrastructure.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            using (var conn = new SqlConnection(_connectionString))
-            using (var com = new SqlCommand("select * from User where id = @id", conn))
-            {
-                conn.Open();
-                com.Parameters.Add(new SqlParameter("@id", id));
-
-                using (var reader = await com.ExecuteReaderAsync())
-                {
-                    if (await reader.ReadAsync())
-                    {
-                        return new User() 
-                        { 
-                            Id = (int)reader["Id"]
-                            , UserName = (string)reader["UserName"] 
-                            , FirstName = (string)reader["FirstName"] 
-                            , LastName = (string)reader["LastName"] 
-                            , Address = (string)reader["Address"] 
-                            , Email = (string)reader["Email"]
-                            , Mobile = (string)reader["Mobile"]
-                        };
-                    }
-                }
-            }
-
             throw new Exception("Not found.");
         }
 
         public async Task<IReadOnlyList<User>> GetAllAsync()
         {
-            var users = new List<User>();
-
-            using (var conn = new SqlConnection(_connectionString))
-            using (var com = new SqlCommand("select * from User", conn))
-            {
-                conn.Open();
-
-                using (var reader = await com.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        var user = new User() 
-                        { 
-                            Id = (int)reader["Id"]
-                            , UserName = (string)reader["UserName"] 
-                            , FirstName = (string)reader["FirstName"] 
-                            , LastName = (string)reader["LastName"] 
-                            , Address = (string)reader["Address"] 
-                            , Email = (string)reader["Email"]
-                            , Mobile = (string)reader["Mobile"]
-                        };
-
-                        users.Add(user);
-                    }
-                }
-            }
-
-            return users;
+            throw new Exception("Not found.");
         }
 
         public Task<int> InsertAsync(User entity)
@@ -92,6 +42,16 @@ namespace Infrastructure.Repositories
         } 
 
         public Task DeleteAsync(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> GetEntityWithSpec(ISpecification<User> spec)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IReadOnlyList<User>> ListAsync(ISpecification<User> spec)
         {
             throw new NotImplementedException();
         }

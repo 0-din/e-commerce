@@ -1,6 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using API.Dtos;
 using Core.Entities;
 using Core.Interface;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -23,17 +24,41 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductToReturnDto>>> GetProducts()
         {
-            var products = await _productRepo.GetAllAsync();
-            return Ok(products);
+            var spec = new ProductsWithTypesAndBrandSpecification();
+            var products = await _productRepo.ListAsync(spec);
+            var dtos = products.Select(product => new ProductToReturnDto()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PictureUrl = product.PictureUrl,
+                Price = product.Price,
+                ProductType = product.ProductType.Name,
+                ProductBrand = product.ProductBrand.Name
+            }).ToList();
+
+            return Ok(dtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductById(int id)
+        public async Task<ActionResult<ProductToReturnDto>> GetProductById(int id)
         {
-            var products = await _productRepo.GetByIdAsync(id);
-            return Ok(products);
+            var spec = new ProductsWithTypesAndBrandSpecification(id);
+            var product = await _productRepo.GetEntityWithSpec(spec);
+            var dto = new ProductToReturnDto()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                PictureUrl = product.PictureUrl,
+                Price = product.Price,
+                ProductType = product.ProductType.Name,
+                ProductBrand = product.ProductBrand.Name
+            };
+
+            return dto;
         }
 
         [HttpGet("brands")]

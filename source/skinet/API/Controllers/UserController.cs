@@ -8,24 +8,24 @@ namespace API.Controllers
     [Route("api/[Controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repository;
+        private readonly IBaseRepository<User> _userRepo;
 
-        public UserController(IUserRepository repository)
+        public UserController(IBaseRepository<User> userRepo)
         {
-            _repository = repository;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAsync()
         {
-            var users = await _repository.GetAllAsync();
+            var users = await _userRepo.GetAllAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetByIdAsync(int id)
         {
-            var user = await _repository.GetByIdAsync(id);
+            var user = await _userRepo.GetByIdAsync(id);
             return Ok(user);
         }
     }
