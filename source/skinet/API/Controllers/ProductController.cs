@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[Controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseApiController
     {
         private readonly IBaseRepository<Product> _productRepo;
         private readonly IBaseRepository<ProductBrand> _productBrandRepo;

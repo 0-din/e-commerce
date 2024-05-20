@@ -4,9 +4,7 @@ using Core.Entities;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[Controller]")]
-    public class UserController : ControllerBase
+    public class UserController : BaseApiController
     {
         private readonly IBaseRepository<User> _userRepo;
 

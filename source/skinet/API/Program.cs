@@ -39,13 +39,17 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
 app.UseStaticFiles();
 
 app.UseAuthorization();
